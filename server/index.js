@@ -1,5 +1,7 @@
 const express = require('express');
 const { ApolloServer, gql } = require("apollo-server-express");
+const { User } = require('../mongoDB/userSchema');
+require('../config/connectWithDB');
 
 const typeDefs = gql`
     type Query {
