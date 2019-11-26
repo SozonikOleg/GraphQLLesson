@@ -1,0 +1,27 @@
+{
+  "name": "graphqllesson",
+  "version": "1.0.0",
+  "description": "GraphQLLesson",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SozonikOleg/GraphQLLesson.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SozonikOleg/GraphQLLesson/issues"
+  },
+  "homepage": "https://github.com/SozonikOleg/GraphQLLesson#readme",
+  "dependencies": {
+    "apollo-server-express": "^2.9.12",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "mongoose": "^5.7.12",
+    "nodemon": "^2.0.1"
+  }
+}
