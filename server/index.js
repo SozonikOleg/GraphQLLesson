@@ -1,24 +1,15 @@
 const express = require('express');
-const { ApolloServer, gql } = require("apollo-server-express");
-const { User } = require('../mongoDB/userSchema');
+const { ApolloServer } = require('apollo-server-express');
+const schema = require('../schema/schema');
 require('../config/connectWithDB');
+const { Movies, Director } = require('../mongoDB/userSchema');
 
-const typeDefs = gql`
-    type Query {
-        hello: String
-    }
-`;
-
-const resolvers = {
-    Query: {
-        hello: () => 'Hello world!'
-    }
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ schema });
 const app = express();
 server.applyMiddleware({ app });
 
-app.listen({ port: 4000 }, () => 
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}ql`)
-);
+// Movies.create(movies.map((movie) => movie));
+
+// Director.create(directors.map((director) => director));
+
+app.listen({ port: 4000 }, () => console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}ql`));

@@ -1,13 +1,26 @@
 const mongoose = require('mongoose');
+
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
-    userName: String,
-    email:String
+const moviesSchema = new Schema({
+  id: String,
+  name: String,
+  genre: String,
+  directorId: String,
 });
 
-const User = mongoose.model('user', userSchema);
+const directorSchema = new Schema({
+  id: String,
+  name: String,
+  age: String,
+  directorId: String,
+});
+
+
+const Movies = mongoose.model('movies', moviesSchema);
+const Director = mongoose.model('director', directorSchema);
 
 module.exports = {
-    User
+  Movies,
+  Director,
 };
