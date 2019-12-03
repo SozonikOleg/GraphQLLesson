@@ -17,10 +17,10 @@ const directorSchema = new Schema({
 });
 
 
-const Movies = mongoose.model('movies', moviesSchema);
+const Movie = mongoose.model('movies', moviesSchema);
 const Director = mongoose.model('director', directorSchema);
 
 module.exports = {
-  Movies,
+  Movie,
   Director,
 };

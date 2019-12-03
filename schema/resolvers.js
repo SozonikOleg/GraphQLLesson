@@ -1,41 +1,67 @@
-const { Movies, Director } = require('../mongoDB/userSchema');
+/* eslint-disable no-underscore-dangle */
+const { Movie, Director } = require('../mongoDB/userSchema');
 
 const resolvers = {
   Query: {
-    movie: (parent, args) => Movies.findByID(args.id),
-    director: (parent, args) => { Director.findById(args.id); },
-    movies: () => { Movies.find({}); },
-    directors: () => { Director.find({}); },
+    movie: async (parent, args) => {
+      const res = await Movie.findById(args._id);
+      return res;
+    },
+    director: async (parent, args) => {
+      const res = await Director.findById(args._id);
+      return res;
+    },
+    movies: async () => {
+      const res = await Movie.find({});
+      return res;
+    },
+    directors: async () => {
+      const res = await Director.find({});
+      return res;
+    },
   },
   Mutation: {
-    addDirector: (parent, args) => {
+    addDirector: async (parent, args) => {
       const director = new Director({
         name: args.name,
         age: args.age,
       });
-      director.save();
+
+      const res = await director.save();
+      return res;
     },
-    addMovie: (parent, args) => {
-      const movie = new Movies({
+    addMovie: async (parent, args) => {
+      const movie = new Movie({
         name: args.name,
         genre: args.genre,
         directorId: args.directorId,
       });
-      return movie.save();
+      const res = await movie.save();
+      return res;
     },
-    deleteDirector: (parent, args) => { Director.findByIdAndRemove(args.id); },
-    deleteMovie: (parent, args) => { Movies.findByIdAndRemove(args.id); },
-    updateDirector: (parent, args) => Director.findByIdAndUpdate(
-      args.id,
-      { $set: { name: args.name, age: args.age } },
-      { new: true },
-    ),
-    updateMovie: (parent, args) => {
-      Movies.findByIdAndUpdate(
-        args.id,
+    deleteDirector: async (parent, args) => {
+      const delDirector = await Director.findByIdAndRemove(args._id);
+      return delDirector;
+    },
+    deleteMovie: async (parent, args) => {
+      const delMovie = await Movie.findByIdAndRemove(args._id);
+      return delMovie;
+    },
+    updateDirector: async (parent, args) => {
+      const updateDirector = await Director.findByIdAndUpdate(
+        args._id,
+        { $set: { name: args.name, age: args.age } },
+        { new: true },
+      );
+      return updateDirector;
+    },
+    updateMovie: async (parent, args) => {
+      const updateMovie = await Movie.findByIdAndUpdate(
+        args._id,
         { $set: { name: args.name, genre: args.genre, directorId: args.directorId } },
         { new: true },
       );
+      return updateMovie;
     },
   },
 };

@@ -1,13 +1,11 @@
 const graphql = require('graphql');
-const { Movies, Director } = require('../mongoDB/userSchema');
+const { Movie, Director } = require('../mongoDB/userSchema');
 
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLSchema,
   GraphQLInt,
   GraphQLList,
-  GraphQLID,
   GraphQLNonNull,
 } = graphql;
 
@@ -15,12 +13,12 @@ const DirectorType = new GraphQLObjectType({
   name: 'Director',
   fields: () => ({
     id: { type: GraphQLString },
-    name: { type: new GraphQLNonNull(GraphQLString) },
+    name: { type: new GraphQLNonNull(GraphQLString), description: 'Example description' },
     age: { type: new GraphQLNonNull(GraphQLInt) },
     movies: {
       type: new GraphQLList(MovieType),
       resolve(parent, args) {
-        return Movies.find({ directorId: parent.id });
+        return Movie.find(args.findById);
       },
     },
   }),
@@ -40,7 +38,6 @@ const MovieType = new GraphQLObjectType({
     },
   }),
 });
-
 
 module.exports = {
   DirectorType,

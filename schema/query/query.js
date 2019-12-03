@@ -1,30 +1,27 @@
-const graphql = require('graphql');
-const { MovieType, DirectorType } = require('../../types/types');
-
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLID,
-} = graphql;
+  GraphQLList,
+} = require('graphql');
+
+const { MovieType, DirectorType } = require('../../types/types');
 
 module.exports = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
     movie: {
       type: MovieType,
-      args: { id: { type: GraphQLID } },
+      args: { _id: { type: GraphQLString } },
     },
     director: {
       type: DirectorType,
-      args: { id: { type: GraphQLID } },
+      args: { _id: { type: GraphQLString } },
     },
     movies: {
-      type: MovieType,
-      args: { id: { type: GraphQLString } },
+      type: new GraphQLList(MovieType),
     },
     directors: {
-      type: DirectorType,
-      args: { id: { type: GraphQLString } },
+      type: new GraphQLList(DirectorType),
     },
   }),
 });

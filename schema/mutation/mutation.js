@@ -1,5 +1,4 @@
 const graphql = require('graphql');
-// const { Movies, Director } = require('../../mongoDB/userSchema');
 const { MovieType, DirectorType } = require('../../types/types');
 
 const {
@@ -12,7 +11,7 @@ const {
 
 module.exports = new GraphQLObjectType({
   name: 'Mutation',
-  fields: {
+  fields: () => ({
     addDirector: {
       type: DirectorType,
       args: {
@@ -30,16 +29,16 @@ module.exports = new GraphQLObjectType({
     },
     deleteDirector: {
       type: DirectorType,
-      args: { id: { type: GraphQLString } },
+      args: { _id: { type: GraphQLString } },
     },
     deleteMovie: {
       type: MovieType,
-      args: { id: { type: GraphQLID } },
+      args: { _id: { type: GraphQLID } },
     },
     updateDirector: {
       type: DirectorType,
       args: {
-        id: { type: GraphQLID },
+        _id: { type: GraphQLID },
         name: { type: new GraphQLNonNull(GraphQLString) },
         age: { type: new GraphQLNonNull(GraphQLInt) },
       },
@@ -47,11 +46,11 @@ module.exports = new GraphQLObjectType({
     updateMovie: {
       type: MovieType,
       args: {
-        id: { type: GraphQLString },
+        _id: { type: GraphQLString },
         name: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
         directorId: { type: GraphQLString },
       },
     },
-  },
+  }),
 });
